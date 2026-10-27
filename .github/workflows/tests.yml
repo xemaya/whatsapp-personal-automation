@@ -1,0 +1,13 @@
+name: Tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Python unit and local HTTP tests (mock provider only)
+        run: python3 -B -m unittest test_poc test_autoreply -v
+      - name: Browser script syntax
+        run: node --check static/app.js
